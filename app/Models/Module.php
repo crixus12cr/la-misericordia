@@ -11,4 +11,9 @@ class Module extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['name', 'number'];
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }
