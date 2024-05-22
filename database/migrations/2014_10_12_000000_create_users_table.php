@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             // $table->rememberToken();
             $table->foreignId('type_document_id')
+            ->nullable()
             ->constrained('type_documents')
             ->onUpdate('cascade')
             ->onDelete('cascade');
