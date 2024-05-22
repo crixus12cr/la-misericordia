@@ -13,6 +13,22 @@ return new class extends Migration
     {
         Schema::create('turns', function (Blueprint $table) {
             $table->id();
+
+            $table->string('turn_prefix');
+
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreignId('category_id')
+                ->constrained('categories')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->enum('status', ['pending', 'in_progress', 'completed', 'canceled'])->default('pending');
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

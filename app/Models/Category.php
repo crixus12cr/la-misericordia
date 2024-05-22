@@ -16,4 +16,9 @@ class Category extends Model
     {
         return $this->belongsToMany(Module::class);
     }
+
+    public function turns()
+    {
+        return $this->hasMany(Turn::class);
+    }
 }

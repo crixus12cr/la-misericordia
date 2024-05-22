@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(TypeDocument::class);
     }
+
+    public function turns()
+    {
+        return $this->hasMany(Turn::class);
+    }
 }
