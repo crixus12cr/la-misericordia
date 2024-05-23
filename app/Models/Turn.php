@@ -15,6 +15,7 @@ class Turn extends Model
         'turn_prefix',
         'user_id',
         'category_id',
+        'module_id',
         'status'
     ];
 
@@ -32,6 +33,11 @@ class Turn extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
     }
 
     protected static function booted()

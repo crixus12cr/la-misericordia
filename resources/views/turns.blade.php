@@ -31,30 +31,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php
-                            $modulos = []; // reemplaza esto con tus datos
-                            $turnos = []; // reemplaza esto con tus datos
-                        @endphp
-
                         @for ($i = 0; $i < 5; $i++)
                             <tr>
                                 @if ($i == 0)
                                     <td class="text-red-500"
                                         style="font-size: 1.5rem; width: 300px; height: 70px; background-color: #ffffff; color: red;">
-                                        <b>{{ $modulos[$i] ?? '' }}</b>
+                                        <b>{{ $turns[$i]->module->name ?? '' }}</b>
                                     </td>
                                     <td class="text-red-500"
                                         style="font-size: 1.5rem; width: 300px; height: 70px; background-color: #ffffff; color: red;">
-                                        <b>{{ $turnos[$i] ?? '' }}</b>
+                                        <b>{{ $turns[$i]->turn_prefix ?? '' }}</b>
                                     </td>
                                 @else
                                     <td class="text-white"
                                         style="font-size: 1.5rem; width: 300px; height: 70px; background-color: #000080;">
-                                        <b>{{ $modulos[$i] ?? '' }}</b>
+                                        <b>{{ $turns[$i]->module->name ?? '' }}</b>
                                     </td>
                                     <td class="text-white"
                                         style="font-size: 1.5rem; width: 300px; height: 70px; background-color: #000080;">
-                                        <b>{{ $turnos[$i] ?? '' }}</b>
+                                        <b>{{ $turns[$i]->turn_prefix ?? '' }}</b>
                                     </td>
                                 @endif
                             </tr>

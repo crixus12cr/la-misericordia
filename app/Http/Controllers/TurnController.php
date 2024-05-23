@@ -2,22 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CategoryService;
 use App\Services\TurnService;
+use App\Services\TypeDocumentService;
 use Illuminate\Http\Request;
+use Mockery\Matcher\Type;
 
 class TurnController extends Controller
 {
-    private $turnService;
-    public function __construct(TurnService $turnService)
+    private $turnService, $categoryService, $typeDocumentService;
+    public function __construct(
+        TurnService $turnService,
+        CategoryService $categoryService,
+        TypeDocumentService $typeDocumentService
+    )
     {
         $this->turnService = $turnService;
+        $this->categoryService = $categoryService;
+        $this->typeDocumentService = $typeDocumentService;
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $turns = $this->turnService->getTurns();
+
+        return view('turns', compact('turns'));
     }
 
     /**
@@ -25,7 +36,10 @@ class TurnController extends Controller
      */
     public function create()
     {
-        //
+        $categories = $this->categoryService->getCategories();
+        $typeDocuments = $this->typeDocumentService->getTypeDocuments();
+
+        return view('create-turn', compact('categories', 'typeDocuments'));
     }
 
     /**
@@ -33,9 +47,9 @@ class TurnController extends Controller
      */
     public function store(Request $request)
     {
-        $test = $this->turnService->createTurn($request);
+        $turn = $this->turnService->createTurn($request);
 
-        dd($test);
+        return $turn;
     }
 
     /**

@@ -26,6 +26,11 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
+            $table->foreignId('module_id')
+                ->constrained('modules')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
             $table->enum('status', ['pending', 'in_progress', 'completed', 'canceled'])->default('pending');
 
             $table->softDeletes();
