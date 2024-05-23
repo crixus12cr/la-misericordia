@@ -9,6 +9,19 @@ use Illuminate\Http\Request;
 
 class TurnService
 {
+    public function getAll(Request $request)
+    {
+        if ($request->has('status') && $request->status !== 'all') {
+            // dd($request->status);
+            $turn = Turn::where('status', $request->status)
+                ->orderBy('id', 'desc')
+                ->get();
+        } else {
+            $turn = Turn::orderBy('id', 'desc')
+                ->get();
+        }
+        return $turn;
+    }
 
     public function getTurns()
     {
@@ -43,6 +56,15 @@ class TurnService
             'module_id' => $module->id,
             'status' => Turn::STATUS_PENDING,
         ]);
+
+        return response()->json(['turn' => $turn], 200);
+    }
+
+    public function updateTurnStatus(string $id, string $status)
+    {
+        $turn = Turn::find($id);
+        $turn->status = $status;
+        $turn->save();
 
         return response()->json(['turn' => $turn], 200);
     }

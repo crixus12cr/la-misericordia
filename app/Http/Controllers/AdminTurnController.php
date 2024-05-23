@@ -2,33 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\CategoryService;
 use App\Services\TurnService;
-use App\Services\TypeDocumentService;
 use Illuminate\Http\Request;
-use Mockery\Matcher\Type;
 
-class TurnController extends Controller
+class AdminTurnController extends Controller
 {
-    private $turnService, $categoryService, $typeDocumentService;
+
+    private $turnService;
     public function __construct(
-        TurnService $turnService,
-        CategoryService $categoryService,
-        TypeDocumentService $typeDocumentService
+        TurnService $turnService
     )
     {
         $this->turnService = $turnService;
-        $this->categoryService = $categoryService;
-        $this->typeDocumentService = $typeDocumentService;
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $turns = $this->turnService->getTurns();
+        $turns = $this->turnService->getAll(request());
 
-        return view('turns', compact('turns'));
+        return view('dashboard', compact('turns'));
     }
 
     /**
@@ -36,10 +30,7 @@ class TurnController extends Controller
      */
     public function create()
     {
-        $categories = $this->categoryService->getCategories();
-        $typeDocuments = $this->typeDocumentService->getTypeDocuments();
-
-        return view('create-turn', compact('categories', 'typeDocuments'));
+        //
     }
 
     /**
@@ -47,9 +38,7 @@ class TurnController extends Controller
      */
     public function store(Request $request)
     {
-        $turn = $this->turnService->createTurn($request);
-
-        return $turn;
+        //
     }
 
     /**
@@ -73,9 +62,7 @@ class TurnController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $this->turnService->updateTurnStatus($id, $request->status);
-
-        return redirect()->route('dashboard');
+        //
     }
 
     /**
