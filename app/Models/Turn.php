@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -31,5 +32,17 @@ class Turn extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($turn) {
+            $date = Carbon::now()->format('Y-m-d');
+            $count = Turn::where('category_id', $turn->category_id)
+                ->whereDate('created_at', $date)
+                ->count();
+
+            $turn->turn_prefix = $turn->category->prefix . '-' . str_pad($count + 1, 3, '0', STR_PAD_LEFT);
+        });
     }
 }
