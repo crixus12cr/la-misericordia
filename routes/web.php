@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminTurnController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TurnController;
 use App\Models\Turn;
@@ -30,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::put('/turns/{id}', [TurnController::class, 'update'])->name('turns.update');
+    Route::get('/modulos', [CategoryController::class, 'index'])->name('module');
+    Route::put('/modulos/{id}', [CategoryController::class, 'update'])->name('categories.update');
 });
 
 

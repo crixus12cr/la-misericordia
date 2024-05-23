@@ -12,7 +12,6 @@ class TurnService
     public function getAll(Request $request)
     {
         if ($request->has('status') && $request->status !== 'all') {
-            // dd($request->status);
             $turn = Turn::where('status', $request->status)
                 ->orderBy('id', 'desc')
                 ->get();
@@ -25,7 +24,7 @@ class TurnService
 
     public function getTurns()
     {
-        $turns = Turn::where('status', Turn::STATUS_PENDING)
+        $turns = Turn::where('status', Turn::STATUS_IN_PROGRESS)
             ->whereDate('created_at', now()->format('Y-m-d'))
             ->orderBy('id', 'asc')
             ->get();
