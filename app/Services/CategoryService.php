@@ -18,6 +18,6 @@ class CategoryService
         $modules = $request->modulos;
         $category->modules()->sync($modules);
 
-        return response()->json(['message' => 'Modules assigned successfully'], 200);
+        return response()->json(['message' => 'Modulos asignados correctamente.'], 200);
     }
 }
